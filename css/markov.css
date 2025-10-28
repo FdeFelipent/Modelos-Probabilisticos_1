@@ -1,0 +1,290 @@
+/* Importación de tipografías */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:wght@700&display=swap');
+
+/* Paleta inspirada en la Universidad de la Amazonia */
+:root {
+  --verde-udla: #006B3F; /* Verde institucional */
+  --verde-selva: #0b7d4b;
+  --dorado-suave: #d4a017;
+  --rojo: #c0392b;
+  --fondo-claro: #f7f9f5;
+  --texto: #0a2010;
+  --card-bg: rgba(255, 255, 255, 0.92);
+}
+
+/* Reset base */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: url('2cecdd99-35bf-4a5d-a3ad-698fc82e0a23.png') no-repeat center center fixed;
+  background-size: cover;
+  color: var(--texto);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* NAVBAR */
+.nav {
+  background: linear-gradient(90deg, var(--verde-udla), var(--verde-selva));
+  color: white;
+  padding: 12px 20px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.brand, .logo {
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+  color: #fff;
+  text-transform: uppercase;
+}
+.brand::after {
+  content: " ✦";
+  color: var(--dorado-suave);
+}
+
+nav a {
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: none;
+  margin-left: 14px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+}
+nav a:hover {
+  background: var(--rojo);
+  color: var(--texto);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* CONTENEDOR PRINCIPAL */
+.wrap {
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 0 18px;
+}
+
+/* TARJETAS */
+.card {
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: fadeIn 0.8s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* TITULOS */
+h1 {
+  font-family: "Merriweather", serif;
+  color: var(--verde-selva);
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+}
+h1::after {
+  content: " Cadenas de Markov";
+  display: block;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: var(--dorado-suave);
+  margin-top: 6px;
+  letter-spacing: 2px;
+}
+
+h2, h3 {
+  font-family: "Merriweather", serif;
+  color: var(--verde-udla);
+  margin-bottom: 8px;
+}
+h2 {
+  font-size: 1.4rem;
+  border-left: 5px solid var(--dorado-suave);
+  padding-left: 10px;
+}
+
+/* CONTROLES */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0;
+  flex-wrap: wrap;
+}
+.row label {
+  min-width: 140px;
+  color: var(--verde-udla);
+  font-weight: 600;
+}
+input[type="number"] {
+  width: 90px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #d6e5da;
+  background: white;
+  color: var(--texto);
+}
+
+/* BOTONES */
+button {
+  background: transparent;
+  border: 2px solid var(--verde-udla);
+  color: var(--verde-udla);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+button:hover {
+  background: var(--verde-udla);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 107, 63, 0.3);
+}
+button.primary {
+  background: var(--verde-udla);
+  color: white;
+  border: none;
+}
+
+/* MATRIZ */
+.matrix-area, .vector-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.matrix-grid {
+  display: grid;
+  gap: 6px;
+  align-items: center;
+}
+.matrix-grid .matrix-row {
+  display: flex;
+  gap: 6px;
+}
+.matrix-grid input {
+  width: 70px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #cde5d7;
+  background: white;
+  transition: all 0.2s ease;
+}
+.matrix-grid input:focus {
+  border-color: var(--verde-selva);
+  box-shadow: 0 0 5px rgba(0, 107, 63, 0.4);
+}
+
+/* TABLAS Y RESULTADOS */
+.steps-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.steps-table th, .steps-table td {
+  border: 1px solid #e6eef8;
+  padding: 8px;
+  text-align: center;
+}
+.steps-table th {
+  background: var(--verde-udla);
+  color: white;
+}
+
+/* INTERPRETACION Y APLICACION */
+#interpretation, #application {
+  line-height: 1.5;
+  color: var(--texto);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
+  border-left: 5px solid var(--dorado-suave);
+  animation: fadeIn 1s ease;
+}
+
+/* GRAFICO */
+.chart-wrap {
+  margin: 14px 0;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* FOOTER */
+footer {
+  background: #111;
+  color: white;
+  padding: 10px 14px;
+  text-align: center;
+  font-size: 0.95rem;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin-top: auto;
+}
+
+/* ANIMACIONES */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* === FOOTER === */
+#siteFooter {
+  background-color: #064e3b;
+  color: #ffffff;
+  text-align: center;
+  padding: 15px 10px;
+  font-size: 0.95rem;
+  width: 100%;
+  position: relative; /* ya no es fixed */
+  bottom: 0;
+  left: 0;
+  margin-top: 40px; /* espacio de respiro al final */
+}
+
+/* Mantener footer al fondo aunque haya poco contenido */
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1; /* empuja el footer al fondo si hay poco contenido */
+}

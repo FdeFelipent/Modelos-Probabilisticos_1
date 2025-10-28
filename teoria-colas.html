@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Teoría de Colas — Calculadora (4 modelos)</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/colas.css">
+
+  <!-- Librerías -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">Teoría de Colas</div>
+      <nav class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="cadenas-markov.html">Cadenas de Markov</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h1>Modelos de Teoría de Colas</h1>
+      <p class="intro">Selecciona una pestaña para abrir la calculadora del modelo. Cada pestaña trae su explicación, la calculadora interactiva, una gráfica y un “dato interesante + aplicación” para Ingeniería de Sistemas.</p>
+
+      <!-- Tabs -->
+      <div class="tabs" role="tablist" aria-label="Modelos de colas">
+        <button class="tab-button active" data-target="tab-mm1" role="tab" aria-selected="true">M/M/1</button>
+        <button class="tab-button" data-target="tab-mmk" role="tab">M/M/k</button>
+        <button class="tab-button" data-target="tab-mm1mm" role="tab">M/M/1/M/M</button>
+        <button class="tab-button" data-target="tab-mmkmm" role="tab">M/M/k/M/M</button>
+      </div>
+    </section>
+
+    <!-- TAB: M/M/1 -->
+    <section id="tab-mm1" class="tab-content active card" role="tabpanel">
+      <h2>M/M/1 — población infinita, canal simple</h2>
+
+      <div class="grid-two">
+        <div>
+          <div class="row"><label for="mm1_lambda">λ (llegadas)</label><input id="mm1_lambda" type="number" step="0.01" value="0.6"></div>
+          <div class="row"><label for="mm1_mu">μ (servicio)</label><input id="mm1_mu" type="number" step="0.01" value="1.0"></div>
+
+          <div class="actions">
+            <button id="mm1_calc" class="primary">Calcular</button>
+            <button data-reset="mm1">Reiniciar</button>
+            <button id="mm1_download" title="Descargar gráfico (PNG)">Descargar gráfico</button>
+          </div>
+
+          <div class="hint">Fórmulas: ρ=λ/μ, L=ρ/(1−ρ), Lq=ρ²/(1−ρ), W=1/(μ−λ)</div>
+        </div>
+
+        <div><div id="mm1_metrics" class="metrics" aria-live="polite"></div></div>
+      </div>
+
+      <div class="chart-wrap"><canvas id="mm1_chart" height="140"></canvas></div>
+
+      <div class="two-cols">
+        <div class="subcard small"><h4>Explicación</h4><div id="mm1_explain"></div></div>
+        <div class="subcard small"><h4>Dato & Aplicación</h4><div id="mm1_app"></div></div>
+      </div>
+    </section>
+
+    <!-- TAB: M/M/k -->
+    <section id="tab-mmk" class="tab-content card" role="tabpanel" aria-hidden="true">
+      <h2>M/M/k — población infinita, canales múltiples</h2>
+
+      <div class="grid-two">
+        <div>
+          <div class="row"><label for="mmk_lambda">λ (llegadas totales)</label><input id="mmk_lambda" type="number" step="0.01" value="2.0"></div>
+          <div class="row"><label for="mmk_mu">μ (servicio por servidor)</label><input id="mmk_mu" type="number" step="0.01" value="1.0"></div>
+          <div class="row"><label for="mmk_k">k (servidores)</label><input id="mmk_k" type="number" step="1" value="3" min="1"></div>
+
+          <div class="actions">
+            <button id="mmk_calc" class="primary">Calcular</button>
+            <button data-reset="mmk">Reiniciar</button>
+            <button id="mmk_download" title="Descargar gráfico (PNG)">Descargar gráfico</button>
+          </div>
+
+          <div class="hint">Erlang C para estimar probabilidad de espera y Lq. Si λ/(kμ) ≥ 1, el sistema tiende a inestabilidad.</div>
+        </div>
+
+        <div><div id="mmk_metrics" class="metrics" aria-live="polite"></div></div>
+      </div>
+
+      <div class="chart-wrap"><canvas id="mmk_chart" height="140"></canvas></div>
+
+      <div class="two-cols">
+        <div class="subcard small"><h4>Explicación</h4><div id="mmk_explain"></div></div>
+        <div class="subcard small"><h4>Dato & Aplicación</h4><div id="mmk_app"></div></div>
+      </div>
+    </section>
+
+    <!-- TAB: M/M/1/M/M -->
+    <section id="tab-mm1mm" class="tab-content card" role="tabpanel" aria-hidden="true">
+      <h2>M/M/1/M/M — población finita, canal simple</h2>
+
+      <div class="grid-two">
+        <div>
+          <div class="row"><label for="mm1mm_lambda">λ (por fuente)</label><input id="mm1mm_lambda" type="number" step="0.01" value="0.2"></div>
+          <div class="row"><label for="mm1mm_mu">μ (servicio)</label><input id="mm1mm_mu" type="number" step="0.01" value="1.0"></div>
+          <div class="row"><label for="mm1mm_M">M (población total)</label><input id="mm1mm_M" type="number" step="1" value="10" min="1"></div>
+
+          <div class="actions">
+            <button id="mm1mm_calc" class="primary">Calcular</button>
+            <button data-reset="mm1mm">Reiniciar</button>
+            <button id="mm1mm_csv" title="Exportar P(n) CSV">Export CSV</button>
+            <button id="mm1mm_download" title="Descargar gráfico (PNG)">Descargar gráfico</button>
+          </div>
+
+          <div class="hint">Modelo de fuentes finitas (nacimiento-muerte): P(n) para n=0..M, L, Lq, P_block, λ_eff, W.</div>
+        </div>
+
+        <div><div id="mm1mm_metrics" class="metrics" aria-live="polite"></div></div>
+      </div>
+
+      <div class="chart-wrap"><canvas id="mm1mm_chart" height="140"></canvas></div>
+
+      <div class="two-cols">
+        <div class="subcard small"><h4>Explicación</h4><div id="mm1mm_explain"></div></div>
+        <div class="subcard small"><h4>Dato & Aplicación</h4><div id="mm1mm_app"></div></div>
+      </div>
+    </section>
+
+    <!-- TAB: M/M/k/M/M -->
+    <section id="tab-mmkmm" class="tab-content card" role="tabpanel" aria-hidden="true">
+      <h2>M/M/k/M/M — población finita, canales múltiples</h2>
+
+      <div class="grid-two">
+        <div>
+          <div class="row"><label for="mmkmm_lambda">λ (por fuente)</label><input id="mmkmm_lambda" type="number" step="0.01" value="0.2"></div>
+          <div class="row"><label for="mmkmm_mu">μ (servicio)</label><input id="mmkmm_mu" type="number" step="0.01" value="0.5"></div>
+          <div class="row"><label for="mmkmm_k">k (servidores)</label><input id="mmkmm_k" type="number" step="1" value="3" min="1"></div>
+          <div class="row"><label for="mmkmm_M">M (población total)</label><input id="mmkmm_M" type="number" step="1" value="10" min="1"></div>
+
+          <div class="actions">
+            <button id="mmkmm_calc" class="primary">Calcular</button>
+            <button data-reset="mmkmm">Reiniciar</button>
+            <button id="mmkmm_csv" title="Exportar P(n) CSV">Export CSV</button>
+            <button id="mmkmm_download" title="Descargar gráfico (PNG)">Descargar gráfico</button>
+          </div>
+
+          <div class="hint">Modelo generalizado de fuente finita con k servidores — ver métricas y P(n).</div>
+        </div>
+
+        <div><div id="mmkmm_metrics" class="metrics" aria-live="polite"></div></div>
+      </div>
+
+      <div class="chart-wrap"><canvas id="mmkmm_chart" height="140"></canvas></div>
+
+      <div class="two-cols">
+        <div class="subcard small"><h4>Explicación</h4><div id="mmkmm_explain"></div></div>
+        <div class="subcard small"><h4>Dato & Aplicación</h4><div id="mmkmm_app"></div></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="siteFooter">Hecho con 💙 en la Universidad de la Amazonia · 2025</footer>
+
+  <!-- JS -->
+  <script src="js/teoriaColas.js"></script>
+</body>
+</html>

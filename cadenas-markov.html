@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cadenas de Markov — Calculadora</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/markov.css">
+
+  <!-- Librerías -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">Cadenas de Markov</div>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="teoria-colas.html">Teoría de colas</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- CONTROLES -->
+    <section class="card" id="panel-controls" aria-labelledby="controls-title">
+      <h2 id="controls-title">Parámetros iniciales</h2>
+
+      <div class="row">
+        <label for="numEstados">Número de estados</label>
+        <input id="numEstados" type="number" min="2" max="8" value="3">
+      </div>
+
+      <div class="row">
+        <label for="numPasos">Número de pasos (máx 10)</label>
+        <input id="numPasos" type="number" min="1" max="10" value="4">
+      </div>
+
+      <div class="actions">
+        <button id="btnGenerate">Generar matriz</button>
+        <button id="btnLoadExample">Cargar ejemplo</button>
+        <button id="btnReset">Reiniciar</button>
+      </div>
+      <p class="hint">Todos los valores deben ser probabilidades (cada fila de P suma 1 y S₀ suma 1).</p>
+    </section>
+
+    <!-- INPUTS: MATRIZ Y VECTOR -->
+    <section class="card grid-two" id="panel-inputs" aria-live="polite">
+      <!-- Left: matriz -->
+      <div class="subcard" id="matrizCard">
+        <h3>Matriz de transición P</h3>
+        <div id="matrixContainer" class="matrix-area"></div>
+      </div>
+
+      <!-- Right: vector inicial + opciones -->
+      <div class="subcard" id="vectorCard">
+        <h3>Vector inicial S₀</h3>
+        <div id="vectorContainer" class="vector-area"></div>
+
+        <div class="options">
+          <button id="btnNormalize">Normalizar filas</button>
+          <button id="btnCalculate" class="primary" disabled>Calcular</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTADOS: tabla pasos + grafico + explicacion + aplicacion -->
+    <section class="card" id="panel-results" style="display:none;">
+      <h2>Resultados</h2>
+
+      <div id="stepsTableContainer" class="fade-in"></div>
+
+      <div class="chart-wrap">
+        <canvas id="markovChart"></canvas>
+      </div>
+
+      <div class="two-cols">
+        <div class="subcard small">
+          <h4>Interpretación automática</h4>
+          <div id="interpretation"></div>
+        </div>
+
+        <div class="subcard small">
+          <h4>Aplicación (Ing. Sistemas)</h4>
+          <div id="application">
+            <p><strong>Ejemplo:</strong> Modelar comportamiento de usuarios en un sitio (probabilidad de pasar de sección A → B).</p>
+            <ul>
+              <li>Permite estimar uso futuro y balancear recursos.</li>
+              <li>Se usa en predicción, caching, y optimización de rutas.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="siteFooter">Hecho con ❤️ en la Universidad de la Amazonia · 2025</footer>
+
+  <!-- Lógica -->
+  <script src="js/markov.js"></script>
+</body>
+</html>
